@@ -1,9 +1,8 @@
 # coding: utf-8
 
-
 import json
-import sys
 
+from enum import Enum
 from requests import (
     Request,
     Session,
@@ -12,6 +11,7 @@ from requests import (
     ConnectionError,
     RequestException,
 )
+from urllib.parse import urljoin
 
 
 class HTTPSession:
@@ -46,6 +46,13 @@ class HTTPRequest:
 
         return HTTPResponse(request, response, message)
 
+    def _request(self, method, path, **kwargs):
+        url = urljoin(self.base_url, path)
+        #  TODO: get endpoint by name
+        request = HTTPRequest(method, url, timeout=3)
+        response = request.send()
+        return response
+
 
 class HTTPResponse:
     def __init__(self, request, response, message):
@@ -70,12 +77,11 @@ class HTTPResponse:
         return f'{self.method} {self.url} => {self.status} {self.message}'
 
 
-def request_handler(description):
-    def decorator(method):
-        def wrapped_method(self, *args, **kwargs):
-            response = method(self, *args, **kwargs)
-            if response.valid:
-                return response
-            sys.exit(f'{response.message} on "{description}"')
-        return wrapped_method
-    return decorator
+class HTTPMethod(Enum):
+    GET = 'GET'
+    POST = 'POST'
+    PUT = 'PUT'
+    DELETE = 'DELETE'
+
+    def __repr__(self):
+        return self.name
