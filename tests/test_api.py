@@ -1,4 +1,4 @@
-from apitos.http import HTTPMethod
+from apito.http import HTTPMethod
 
 
 def test_swapi_name(test_swapi):

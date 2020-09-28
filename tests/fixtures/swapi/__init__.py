@@ -1,4 +1,4 @@
-from apitos.api import APIClient
+from apito.api import APIClient
 
 from . import people_endpoints  # noqa!
 

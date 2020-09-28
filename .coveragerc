@@ -1,7 +1,7 @@
 [run]
-source = apitos/
+source = apito/
 branch = true
-data_file = /tmp/.apitos-coverage
+data_file = /tmp/.apito-coverage
 
 [report]
 fail_under = 50

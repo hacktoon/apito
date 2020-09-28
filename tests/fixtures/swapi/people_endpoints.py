@@ -1,5 +1,5 @@
-from apitos.api import ApiEndpoint
-from apitos.http import HTTPMethod
+from apito.api import ApiEndpoint
+from apito.http import HTTPMethod
 
 
 class PeopleEndpoint(ApiEndpoint):
